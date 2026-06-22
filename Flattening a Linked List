@@ -1,0 +1,47 @@
+/*
+class Node {
+public:
+    int data;
+    Node* next;
+    Node* bottom;
+
+    Node(int x) {
+        data = x;
+        next = nullptr;
+        bottom = nullptr;
+    }
+}; */
+
+class Solution {
+  public:
+    Node* mergeTwoLists(Node *list1,Node *list2) {
+        if(list1 == NULL) {
+            return list2;
+        }
+
+        if(list2 == NULL) {
+            return list1;
+        }
+
+         Node* result;
+        if(list1->data < list2->data) {
+            result = list1;
+            result->bottom = mergeTwoLists(list1->bottom, list2);
+        } else {
+            result = list2;
+            result->bottom = mergeTwoLists(list1, list2->bottom);
+        }
+
+        return result;
+    }
+    Node *flatten(Node *root) {
+        // code here
+        if(root==NULL) return root;
+        
+        Node* head2 = flatten(root->next);
+        
+        
+        return mergeTwoLists(root,head2);
+        
+    }
+};
