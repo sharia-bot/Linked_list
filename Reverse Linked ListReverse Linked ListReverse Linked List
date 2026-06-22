@@ -1,0 +1,66 @@
+Approach-1;
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* revhead;
+    void solve(ListNode* prev, ListNode* current, ListNode* f){
+        if(current->next == NULL){
+            current->next = prev;
+            revhead = current;
+            return;
+        } 
+        current->next = prev;
+        prev = current;
+        current = f;
+        f = f->next;
+        solve(prev, current, f);
+    }
+    ListNode* reverseList(ListNode* head) {
+        if (head == NULL || head->next == NULL)
+            return head;
+        ListNode* prev = NULL;
+        ListNode* current = head;
+        ListNode* f  = head->next;
+        solve(prev, current, f);
+        return revhead;
+
+    }
+};
+
+approach-2
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+            if(head == NULL || head->next == NULL){
+                 return head;
+            }
+            
+             ListNode* last = reverseList(head->next);
+
+            head->next->next = head;
+            head->next = NULL;
+
+        
+         return last;
+        
+    }
+};
